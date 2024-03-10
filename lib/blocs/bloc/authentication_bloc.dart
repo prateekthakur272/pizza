@@ -8,10 +8,10 @@ part 'authentication_event.dart';
 part 'authentication_state.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
-  final BaseUserRepository _userRepository;
+  final BaseUserRepository userRepository;
   late final StreamSubscription<MyUser?> _userSubscription;
-  AuthenticationBloc(this._userRepository) : super(AuthenticationUnauthenticated()) {
-    _userSubscription = _userRepository.user.listen((user) {
+  AuthenticationBloc(this.userRepository) : super(AuthenticationUnauthenticated()) {
+    _userSubscription = userRepository.user.listen((user) {
       add(AuthenticationUserChanges(user: user));
     });
     on<AuthenticationUserChanges>((event, emit) {
