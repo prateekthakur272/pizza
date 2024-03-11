@@ -6,9 +6,6 @@ sealed class AuthenticationState extends Equatable{
 }
 
 final class AuthenticationUnauthenticated extends AuthenticationState {}
-
-final class AuthenticationPending extends AuthenticationState {}
-
 final class AuthenticationSuccess extends AuthenticationState {
   final MyUser user;
   AuthenticationSuccess({required this.user});
@@ -16,5 +13,3 @@ final class AuthenticationSuccess extends AuthenticationState {
   @override
   List<Object?> get props => [user];
 }
-
-final class AuthenticationFailure extends AuthenticationState {}

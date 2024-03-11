@@ -18,7 +18,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       if(event.user != null){
         emit(AuthenticationSuccess(user: event.user!));
       }else{
-        emit(AuthenticationFailure());
+        emit(AuthenticationUnauthenticated());
       }
     });
   }
