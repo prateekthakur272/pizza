@@ -1,6 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pizza/blocs/bloc/authentication_bloc.dart';
 import 'package:pizza/constants/constants.dart';
+import 'package:pizza/screens/auth/blocs/sign_in_bloc.dart';
+import 'package:pizza/screens/auth/blocs/sign_up_bloc.dart';
 import 'package:pizza/screens/auth/views/sign_in_view.dart';
 import 'package:pizza/screens/auth/views/sign_up_view.dart';
 
@@ -60,11 +64,20 @@ class _AuthScreenState extends State<AuthScreen> {
                   'Your budget buddy',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w300),
                 ),
-                space8,space8,
-                if(showLogin)
-                const SignInView(),
-                if(!showLogin)
-                const SignUpView(),
+                space8,
+                space8,
+                if (showLogin)
+                  BlocProvider(
+                    create: (context) => SignInBloc(
+                        context.read<AuthenticationBloc>().userRepository),
+                    child: const SignInView(),
+                  ),
+                if (!showLogin)
+                  BlocProvider(
+                    create: (context) => SignUpBloc(
+                        context.read<AuthenticationBloc>().userRepository),
+                    child: const SignUpView(),
+                  ),
                 const Spacer(),
                 Align(
                   alignment: Alignment.center,
