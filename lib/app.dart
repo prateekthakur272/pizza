@@ -25,8 +25,12 @@ class App extends StatelessWidget {
                 onError: onErrorColor,
                 background: backgroundColor,
                 onBackground: onBackgroundColor,
+                tertiary: colorTertiary,
+                onTertiary: colorOnTertiary,
                 surface: surfaceColor,
-                onSurface: onSurfaceColor),
+                onSurface: onSurfaceColor,
+                outline: outlineColor,
+              ),
             elevatedButtonTheme: ElevatedButtonThemeData(style: ElevatedButton.styleFrom(
               backgroundColor: colorPrimary,
               foregroundColor: colorOnPrimary,

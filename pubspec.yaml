@@ -41,6 +41,8 @@ dependencies:
   user_repository:
     path: packages/user_repository
   firebase_core: ^2.27.0
+  font_awesome_flutter: ^10.7.0
+  fl_chart: ^0.66.2
 
 dev_dependencies:
   flutter_test:
