@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pizza/blocs/bloc/authentication_bloc.dart';
+import 'package:pizza/blocs/authentication_bloc.dart';
 import 'package:pizza/constants/constants.dart';
 import 'package:pizza/screens/auth/blocs/sign_in_bloc.dart';
 import 'package:pizza/screens/auth/blocs/sign_up_bloc.dart';
