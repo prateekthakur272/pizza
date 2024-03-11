@@ -32,7 +32,7 @@ class _AuthScreenState extends State<AuthScreen> {
             width: MediaQuery.of(context).size.width / 1.1,
             height: MediaQuery.of(context).size.width / 1.1,
             decoration: BoxDecoration(
-                shape: BoxShape.circle, color: Colors.green.shade400),
+                shape: BoxShape.circle, color: colorPrimary),
           ),
         ),
         Align(
@@ -41,7 +41,7 @@ class _AuthScreenState extends State<AuthScreen> {
             width: MediaQuery.of(context).size.width / 1.6,
             height: MediaQuery.of(context).size.width / 1.6,
             decoration: BoxDecoration(
-                shape: BoxShape.circle, color: Colors.purple.shade300),
+                shape: BoxShape.circle, color: colorSecondary),
           ),
         ),
         BackdropFilter(
