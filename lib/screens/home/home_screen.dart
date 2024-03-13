@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pizza/screens/add_expense/add_expense.dart';
 import 'package:pizza/screens/home/views/home.dart';
 import 'package:pizza/screens/home/views/stats.dart';
 
@@ -22,7 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
         children: const [HomeView(),StatsView()]),
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> const AddExpenseScreen()));
+        },
         child: Container(
             width: 64,
             height: 64,
