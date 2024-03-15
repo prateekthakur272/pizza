@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:pizza/constants/constants.dart';
+import 'package:pizza/screens/add_expense/add_category.dart';
 import 'package:pizza/widgets/custom_form_field.dart';
 
 class AddExpenseScreen extends StatefulWidget {
@@ -32,18 +34,15 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Align(
-              alignment: Alignment.topLeft,
-              child: FloatingActionButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                shape: const CircleBorder(),
-                backgroundColor: Colors.white,
-                foregroundColor: Theme.of(context).colorScheme.primary,
-                elevation: 2,
-                child: const Icon(Icons.close),
-              ),
-            ),
+                alignment: Alignment.topLeft,
+                child: IconButton(
+                  onPressed: () {},
+                  iconSize: 32,
+                  icon: const Icon(Icons.close),
+                  style: IconButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.surface,
+                      foregroundColor: Theme.of(context).colorScheme.primary),
+                )),
             const Text(
               'Add Expense',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
@@ -60,10 +59,15 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               controller: _categoryController,
               label: 'Category',
               prefixIcon: const Icon(FontAwesomeIcons.list),
-              suffixIcon: IconButton(onPressed: (){}, icon: const Icon(Icons.add)),
-              onTap: () {
-                
-              },
+              suffixIcon: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AddCategoryScreen()));
+                  },
+                  icon: const Icon(Icons.add)),
+              onTap: () {},
             ),
             space16,
             CustomFormField(
@@ -77,9 +81,10 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     initialDate: DateTime.now(),
                     firstDate: DateTime.now(),
                     lastDate: DateTime.now().add(const Duration(days: 365)));
-                  if(newDate!=null){
-                    _dateController.text = DateFormat('dd-MM-yyyy').format(newDate);
-                  }
+                if (newDate != null) {
+                  _dateController.text =
+                      DateFormat('dd-MM-yyyy').format(newDate);
+                }
               },
             ),
             space32,
