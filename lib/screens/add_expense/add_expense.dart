@@ -1,9 +1,11 @@
+import 'package:expense_repository/expense_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:pizza/constants/constants.dart';
 import 'package:pizza/screens/add_expense/add_category.dart';
+import 'package:pizza/screens/add_expense/blocs/category_bloc.dart';
 import 'package:pizza/widgets/custom_form_field.dart';
 
 class AddExpenseScreen extends StatefulWidget {
@@ -36,7 +38,9 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
             Align(
                 alignment: Alignment.topLeft,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   iconSize: 32,
                   icon: const Icon(Icons.close),
                   style: IconButton.styleFrom(
@@ -64,7 +68,11 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const AddCategoryScreen()));
+                            builder: (context) => BlocProvider<CategoryBloc>(
+                                  create: (context) =>
+                                      CategoryBloc(FirebaseExpenseRepositry()),
+                                  child: const AddCategoryScreen(),
+                                )));
                   },
                   icon: const Icon(Icons.add)),
               onTap: () {},

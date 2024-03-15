@@ -34,7 +34,7 @@ class CreateCategory extends CategoryEvent {
   List<Object?> get props => [category];
 }
 
-class CategoryBloc extends Bloc {
+class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   final BaseExpenseRepository _expenseRepository;
   CategoryBloc(this._expenseRepository) : super(CategoryInitial()) {
     on<CreateCategory>((event, emit) async {
