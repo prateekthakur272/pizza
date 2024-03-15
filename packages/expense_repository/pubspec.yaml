@@ -1,0 +1,11 @@
+name: expense_repository
+description: package that handels all the expense related data and connectivity
+publish_to: 'none'
+
+environment:
+  sdk: '>3.1.0 <4.0.0'
+
+dependencies:
+  cloud_firestore: ^4.15.9
+  flutter:
+    sdk: flutter
