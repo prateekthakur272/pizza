@@ -40,6 +40,8 @@ dependencies:
   equatable: ^2.0.5
   user_repository:
     path: packages/user_repository
+  expense_repository:
+    path: packages/expense_repository
   firebase_core: ^2.27.0
   font_awesome_flutter: ^10.7.0
   fl_chart: ^0.66.2
