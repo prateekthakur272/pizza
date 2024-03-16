@@ -3,11 +3,11 @@ import 'package:expense_repository/src/models/models.dart';
 import 'category.dart';
 
 class Expense {
-  final String id;
-  final Category category;
-  final DateTime date;
-  final int amount;
-  const Expense({
+  String id;
+  Category category;
+  DateTime date;
+  int amount;
+  Expense({
     required this.id,
     required this.category,
     required this.date,
