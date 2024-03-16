@@ -20,6 +20,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   final _categoryController = TextEditingController();
   final _dateController = TextEditingController();
 
+  bool _categorySelectorEnabled = false;
+
   @override
   void initState() {
     _dateController.text = DateFormat('dd-MM-yyyy').format(DateTime.now());
@@ -75,8 +77,43 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                 )));
                   },
                   icon: const Icon(Icons.add)),
-              onTap: () {},
+              onTap: () {
+                setState(() {
+                  _categorySelectorEnabled = !_categorySelectorEnabled;
+                });
+              },
             ),
+            space8,
+            Visibility(
+                visible: _categorySelectorEnabled,
+                child: Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(24)),
+                  child: Center(
+                    child: BlocBuilder<CategoryBloc, CategoryState>(
+                      builder: (context, state) {
+                        if (state is CategoryLoading) {
+                          return const CircularProgressIndicator();
+                        } else if (state is GetCategoryListSuccess) {
+                          return ListView.builder(
+                              itemCount: 10,
+                              itemBuilder: (context, index) {
+                                final category = state.categories[index];
+                                return ListTile(
+                                  title: Text(category.name),
+                                  leading: ImageIcon(AssetImage(
+                                      'assets/${category.icon}.png')),
+                                );
+                              });
+                        } else {
+                          return const Text('some error occurred');
+                        }
+                      },
+                    ),
+                  ),
+                )),
             space16,
             CustomFormField(
               readOnly: true,

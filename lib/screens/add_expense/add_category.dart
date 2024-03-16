@@ -47,7 +47,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
             backgroundColor: Colors.green.shade400,
           ));
           Navigator.pop(context);
-        } else if (state is CreateCategoryFailed) {
+        } else if (state is CategoryFailed) {
           setState(() {
             _loading = false;
           });
@@ -55,7 +55,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
             content: const Text('Some error occurred'),
             backgroundColor: Theme.of(context).colorScheme.error,
           ));
-        }else if (state is CreateCategoryLoading){
+        }else if (state is CategoryLoading){
           setState(() {
             _loading = true;
           });

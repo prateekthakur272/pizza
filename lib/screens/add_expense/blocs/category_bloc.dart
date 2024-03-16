@@ -10,15 +10,22 @@ class CategoryState extends Equatable {
 
 class CategoryInitial extends CategoryState {}
 
-class CreateCategorySuccess extends CategoryState {}
+class CategoryLoading extends CategoryState {}
 
-class CreateCategoryLoading extends CategoryState {}
-
-class CreateCategoryFailed extends CategoryState {
+class CategoryFailed extends CategoryState {
   final String message;
-  CreateCategoryFailed(this.message);
+  CategoryFailed(this.message);
   @override
   List<Object?> get props => [message];
+}
+
+class CreateCategorySuccess extends CategoryState {}
+
+class GetCategoryListSuccess extends CategoryState {
+  final List<Category> categories;
+  GetCategoryListSuccess(this.categories);
+  @override
+  List<Object?> get props => [categories];
 }
 
 class CategoryEvent extends Equatable {
@@ -34,16 +41,28 @@ class CreateCategory extends CategoryEvent {
   List<Object?> get props => [category];
 }
 
+class GetCategoryList extends CategoryEvent {}
+
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   final BaseExpenseRepository _expenseRepository;
   CategoryBloc(this._expenseRepository) : super(CategoryInitial()) {
     on<CreateCategory>((event, emit) async {
-      emit(CreateCategoryLoading());
+      emit(CategoryLoading());
       try {
         await _expenseRepository.cerateCategory(event.category);
         emit(CreateCategorySuccess());
       } catch (e) {
-        emit(CreateCategoryFailed(
+        emit(CategoryFailed(
+            (e as FirebaseException).message ?? 'some error occurred'));
+      }
+    });
+    on<GetCategoryList>((event, emit) async {
+      emit(CategoryLoading());
+      try {
+        final categories = await _expenseRepository.getCategories();
+        emit(GetCategoryListSuccess(categories));
+      } catch (e) {
+        emit(CategoryFailed(
             (e as FirebaseException).message ?? 'some error occurred'));
       }
     });

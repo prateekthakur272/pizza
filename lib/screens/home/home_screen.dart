@@ -1,8 +1,11 @@
 import 'dart:math';
 
+import 'package:expense_repository/expense_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pizza/screens/add_expense/add_expense.dart';
+import 'package:pizza/screens/add_expense/blocs/category_bloc.dart';
 import 'package:pizza/screens/home/views/home.dart';
 import 'package:pizza/screens/home/views/stats.dart';
 
@@ -18,13 +21,21 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: index,
-        children: const [HomeView(),StatsView()]),
+      body:
+          IndexedStack(index: index, children: const [HomeView(), StatsView()]),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'add',
         shape: const CircleBorder(),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> const AddExpenseScreen()));
+          // Navigator.push(context, MaterialPageRoute(builder: (context)=> const AddExpenseScreen()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => BlocProvider<CategoryBloc>(
+                        create: (context) =>
+                            CategoryBloc(FirebaseExpenseRepositry())..add(GetCategoryList()),
+                        child: const AddExpenseScreen(),
+                      )));
         },
         child: Container(
             width: 64,
