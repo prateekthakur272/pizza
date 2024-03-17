@@ -16,6 +16,13 @@ class ExpenseFailed extends ExpenseState{
 }
 class ExpenseCreated extends ExpenseState{}
 
+class ExpensesFetched extends ExpenseState{
+  final List<Expense> expenses;
+  ExpensesFetched(this.expenses);
+  @override
+  List<Object?> get props => [expenses];
+}
+
 
 class ExpenseEvent extends Equatable{
   @override
@@ -27,6 +34,8 @@ class CreateExpense extends ExpenseEvent{
   CreateExpense(this.expense);
 }
 
+class GetExpenses extends ExpenseEvent{}
+
 
 class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState>{
   final BaseExpenseRepository _expenseRepository;
@@ -37,7 +46,16 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState>{
         await _expenseRepository.createExpense(event.expense);
         emit(ExpenseCreated());
       } on FirebaseException catch (e) {
-        emit(ExpenseFailed(e.message??'some error occurred'));
+        emit(ExpenseFailed(e.message??'some error occured'));
+      }
+    });
+    on<GetExpenses>((event, emit) async {
+      emit(ExpenseLoading());
+      try {
+        final expenses = await _expenseRepository.getExpenses();
+        emit(ExpensesFetched(expenses));
+      } on FirebaseException catch (e) {
+        emit(ExpenseFailed(e.message??'some error occured'));
       }
     });
   }

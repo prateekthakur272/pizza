@@ -17,7 +17,7 @@ class Expense {
   factory Expense.fromMap(Map<String, dynamic> map) {
     return Expense(
         id: map['id'],
-        category: map['category'],
+        category: Category.fromMap(map['category']),
         date: (map['date'] as Timestamp).toDate(),
         amount: map['amount']);
   }
@@ -33,7 +33,7 @@ class Expense {
     return {
       'id': id,
       'category': category.toMap(),
-      'datetime': date,
+      'date': date,
       'amount': amount
     };
   }

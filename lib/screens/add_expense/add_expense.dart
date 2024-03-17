@@ -189,7 +189,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               space32,
               Visibility(
                 visible: _isAddButtonEnabled,
-                replacement: CircularProgressIndicator(),
+                replacement: const CircularProgressIndicator(),
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
