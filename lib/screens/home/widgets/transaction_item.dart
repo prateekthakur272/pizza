@@ -12,9 +12,8 @@ class TransactionItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Theme.of(context).colorScheme.surface
-      ),
+          borderRadius: BorderRadius.circular(16),
+          color: Theme.of(context).colorScheme.surface),
       child: Row(
         children: [
           Stack(
@@ -28,18 +27,30 @@ class TransactionItem extends StatelessWidget {
                   color: Color(expense.category.color),
                 ),
               ),
-              ImageIcon(AssetImage('assets/${expense.category.icon}.png'), color: Theme.of(context).colorScheme.surface,),
+              ImageIcon(
+                AssetImage('assets/${expense.category.icon}.png'),
+                color: Theme.of(context).colorScheme.surface,
+              ),
             ],
           ),
           space16,
-          Text(expense.category.name,style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),),
+          Text(
+            expense.category.name,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
           space16,
           const Spacer(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text('Rs ${expense.amount}', style: const TextStyle(),),
-              Text(DateFormat().format(expense.date), style: TextStyle(color: Theme.of(context).colorScheme.outline),)
+              Text(
+                'Rs ${expense.amount}',
+                style: const TextStyle(),
+              ),
+              Text(
+                DateFormat().format(expense.date),
+                style: TextStyle(color: Theme.of(context).colorScheme.outline),
+              )
             ],
           )
         ],
