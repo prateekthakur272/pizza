@@ -80,9 +80,9 @@ class HomeView extends StatelessWidget {
                         'Total Balance',
                         style: TextStyle(fontSize: 18, color: colorOnPrimary),
                       ),
-                      const Text(
-                        'Rs. 5000',
-                        style: TextStyle(
+                      Text(
+                        (expenses.map((e) => e.amount)).reduce((value, element) => value+element).toString(),
+                        style: const TextStyle(
                             fontSize: 36,
                             fontWeight: FontWeight.w600,
                             color: colorOnPrimary),
