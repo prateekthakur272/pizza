@@ -37,6 +37,8 @@ class SignInRequired extends SignInEvent{
   List<Object?> get props => [email, password];
 }
 
+class SignOutRequired extends SignInEvent{}
+
 class SignInBloc extends Bloc<SignInEvent, SignInState>{
 
   final BaseUserRepository _userRepository;
@@ -46,6 +48,14 @@ class SignInBloc extends Bloc<SignInEvent, SignInState>{
       emit(SignInLoading());
       try{
         await _userRepository.signIn(event.email, event.password);
+      }catch(e){
+        emit(SignInFailed(e.toString()));
+      }
+    });
+    on<SignOutRequired>((event, emit) async {
+      emit(SignInLoading());
+      try{
+        await _userRepository.signOut();
       }catch(e){
         emit(SignInFailed(e.toString()));
       }

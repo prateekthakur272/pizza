@@ -5,7 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pizza/blocs/authentication_bloc.dart';
 import 'package:pizza/constants/constants.dart';
 import 'package:pizza/screens/add_expense/blocs/expense_bloc.dart';
+import 'package:pizza/screens/auth/blocs/sign_in_bloc.dart';
 import 'package:pizza/screens/home/widgets/transaction_item.dart';
+import 'package:pizza/screens/profile_screen/profile_screen.dart';
+import 'package:user_repository/user_repository.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -32,7 +35,15 @@ class HomeView extends StatelessWidget {
                       elevation: 0,
                       backgroundColor: colorTertiary,
                       foregroundColor: Colors.black,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                      create: (context) => SignInBloc(FirebaseUserRepository()),
+                                      child: const ProfileScreen(),
+                                    )));
+                      },
                       shape: const CircleBorder(),
                       child: const Icon(CupertinoIcons.person_fill),
                     ),
@@ -81,7 +92,9 @@ class HomeView extends StatelessWidget {
                         style: TextStyle(fontSize: 18, color: colorOnPrimary),
                       ),
                       Text(
-                        (expenses.map((e) => e.amount)).reduce((value, element) => value+element).toString(),
+                        (expenses.map((e) => e.amount))
+                            .reduce((value, element) => value + element)
+                            .toString(),
                         style: const TextStyle(
                             fontSize: 36,
                             fontWeight: FontWeight.w600,
@@ -182,13 +195,15 @@ class HomeView extends StatelessWidget {
                   child: ListView.separated(
                     itemCount: expenses.length,
                     separatorBuilder: (context, index) => space16,
-                    itemBuilder: (context, index) => TransactionItem(expense: expenses[index],),
+                    itemBuilder: (context, index) => TransactionItem(
+                      expense: expenses[index],
+                    ),
                   ),
                 )
               ])),
         );
       }
-      if(state is ExpenseLoading){
+      if (state is ExpenseLoading) {
         return const Center(child: CircularProgressIndicator());
       }
       return const Center(child: Text('error'));
